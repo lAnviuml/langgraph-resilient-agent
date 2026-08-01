@@ -2,8 +2,9 @@ FROM ghcr.io/astral-sh/uv:0.9.27-python3.12-bookworm-slim AS build
 ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy
 WORKDIR /app
 COPY pyproject.toml uv.lock ./
-RUN uv sync --locked --no-dev
+COPY README.md ./
 COPY src src
+RUN uv sync --locked --no-dev
 
 FROM python:3.12.12-slim-bookworm
 RUN useradd --create-home --uid 10001 app
